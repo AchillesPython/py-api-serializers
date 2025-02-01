@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from cinema.models import Genre, Actor, CinemaHall, Movie, MovieSession
 
 
@@ -40,15 +41,15 @@ class MovieRetrieveSerializer(MovieSerializer):
     actors = ActorSerializer(many=True, read_only=True)
 
 
-class MovieSessionListSerializer(MovieSessionSerializer):
+class MovieSessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = MovieSession
         fields = ("id", "show_time", "movie", "cinema_hall")
 
 
 class MovieSessionListSerializer(MovieSessionSerializer):
-    movie_title = serializer.CharField(source="movie.title",
-                                       read_only=True)
+    movie_title = serializers.CharField(source="movie.title",
+                                        read_only=True)
     cinema_hall_name = serializers.CharField(source="cinema_hall.name",
                                              read_only=True)
     cinema_hall_capacity = serializers.IntegerField(
