@@ -41,6 +41,12 @@ class MovieRetrieveSerializer(MovieSerializer):
     actors = ActorSerializer(many=True, read_only=True)
 
 
+class MovieSessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MovieSession
+        fields = ("id", "show_time", "movie", "cinema_hall")
+
+
 class MovieSessionListSerializer(MovieSessionSerializer):
     movie_title = serializers.CharField(source="movie.title",
                                         read_only=True)
